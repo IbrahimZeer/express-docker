@@ -33,7 +33,7 @@ jobs:
         run: docker push ghcr.io/ibrahimzeer/express-docker:${{ steps.image_version.outputs.gitsha }}
       # set as environment variable to change comunication chanle
       - name: configure docker host
-        uses: khaledz/configure-docker-host@v1
+        uses: khaledez/configure—docker—host@vl
         with:
           host: 172.31.26.158
           user: github
