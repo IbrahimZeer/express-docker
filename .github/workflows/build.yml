@@ -27,7 +27,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build the Docker image
         run:
-          docker build . --file Dockerfile --tag ghcr.io/ibraheemzeer/${{ steps.image_version.gitsha }}
+          docker build . --file Dockerfile --tag ghcr.io/ibraheemzeer/${{ steps.image_version.outputs.gitsha }}
           #should to be tag name same name of repo
       - name: Publish docker image
-        run: docker psuh ghcr.io/ibraheemzeer/${{ steps.image_version.gitsha }}
+        run: docker psuh ghcr.io/ibraheemzeer/${{ steps.image_version.outputs.gitsha }}
