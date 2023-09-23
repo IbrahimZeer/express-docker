@@ -17,6 +17,7 @@ services:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       timeout: 20s
       retries: 10
+    # if there any problems (crash , failure , etc) will restart
     restart: always
 
 

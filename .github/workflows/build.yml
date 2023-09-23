@@ -31,3 +31,17 @@ jobs:
           #should to be tag name same name of repo
       - name: Publish docker image
         run: docker push ghcr.io/ibrahimzeer/express-docker:${{ steps.image_version.outputs.gitsha }}
+      # set as environment variable to change comunication chanle
+      - name: configure docker host
+        uses: khaledz/configure-docker-host@v1
+        with:
+          host: 172.31.26.158
+          user: github
+          ssh-private-key: ${{ secrets.DEPLOYMENT_KEY }}
+      - name: deploy
+        run: docker compose -f docker-compose-prod.yml up -d
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      - name: pring logs
+        if: always()
+        run: docker
