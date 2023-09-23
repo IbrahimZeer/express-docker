@@ -15,6 +15,9 @@ ADD . .
 # Build the app
 RUN npm run build
 
+#should to install curl to able for as start helthcheck
+RUN apk add curl
+
 HEALTHCHECK --interval=10s --timeout=3s \
     CMD curl -f http://localhost/ || exit 1
 
