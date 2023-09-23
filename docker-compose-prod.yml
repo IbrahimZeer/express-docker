@@ -23,7 +23,7 @@ services:
 
   app:
     # to take image go to github => packages => your package created for it
-    image: ghcr.io/ibrahimzeer/express-docker:74e9703
+    image: ghcr.io/ibrahimzeer/express-docker:$GIT_VERSION
     restart: always
     container_name: express-docker
     build: .

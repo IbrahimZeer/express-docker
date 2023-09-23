@@ -35,13 +35,14 @@ jobs:
       - name: configure docker host
         uses: khaledez/configure-docker-host@v1
         with:
-          host: 3.9.10.219
+          host: 35.177.163.112
           user: github
           ssh-private-key: ${{ secrets.DEPLOYMENT_KEY }}
       - name: deploy
         run: docker compose -f docker-compose-prod.yml up -d
         env:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          GIT_VERSION: ${{ steps.image_version.outputs.gitsha}}
       - name: pring logs
         if: always()
         run: docker
