@@ -1,0 +1,33 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # create edits in github tokens
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set image version
+        id: image_version
+        run: echo "gitsha=$(git rev-parse --short HEAD )" >> $GITHIB_OUTPUT
+      # we add this to create publish and use it
+      - name: Login to Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build the Docker image
+        run:
+          docker build . --file Dockerfile --tag ghcr.io/ibraheemzeer/${{ steps.image_version.gitsha }}
+          #should to be tag name same name of repo
+      - name: Publish docker image
+        run: docker psuh ghcr.io/ibraheemzeer/${{ steps.image_version.gitsha }}
