@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set image version
         id: image_version
-        run: echo "gitsha=$(git rev-parse --short HEAD )" >> $GITHIB_OUTPUT
+        run: echo "gitsha=$(git rev-parse --short HEAD )" >> $GITHUB_OUTPUT
       # we add this to create publish and use it
       - name: Login to Registry
         uses: docker/login-action@v3
